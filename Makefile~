@@ -1,0 +1,44 @@
+# TP 19 Exercice 1 : fichier Makefile
+
+# CHAPITRE 1 : BUT FINAL
+
+but : projet
+
+# CHAPITRE 2 : VARIABLES
+
+OFILES = menu.o \
+	 jouer.o \
+	 jouersolo.o \
+	 game.o \
+	 main.o \
+
+
+CC = gcc
+
+CFLAGS = -Wall -ansi -pedantic -g -lgraph
+
+# CHAPITRE 3 : DEPENDANCES (REGLES IMPLICITES)
+
+menu.o : jouer.h jouersolo.h
+
+jouer.o : game.h
+
+jouersolo.o: game.h
+
+game.o : menu.h
+
+main.o : menu.h
+
+#CHAPITRE 4 : DEPENDANCES AVEC COMMANDES
+
+projet : $(OFILES)
+	  $(CC) $(CFLAGS) -o projet $(OFILES)
+
+#CHAPITRE 5 : NETTOYAGE DES FICHIERS GENERES
+
+clean :
+	-rm -f $(OFILES) projet
+
+#CHAPITRE 6 : BUTS FACTICES
+
+.PHONY : but clean
